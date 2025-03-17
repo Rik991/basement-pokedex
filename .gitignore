@@ -1,0 +1,17 @@
+#ANGULAR
+frontend/node_modules/
+frontend/dist/
+
+#SPRINGBOOT (IDEA)
+backend/target/
+backend/.idea/
+
+# IDE
+.vscode/
+.idea/
+
+# FILE DI SISTEMA E TEMPORANEI
+.DS_Store
+Thumbs.db
+*.log
+*.iml
