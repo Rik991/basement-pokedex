@@ -24,7 +24,7 @@ public class PokemonController {
     @GetMapping("/{name}")
     public ResponseEntity<PokemonDTO> getPokemonByName(@PathVariable String name) {
       PokemonDTO pokemon = pokemonService.getPokemonByName(name);
-      return new ResponseEntity<>(pokemon, HttpStatus.FOUND);
+      return new ResponseEntity<>(pokemon, HttpStatus.OK);
     }
 
 }
