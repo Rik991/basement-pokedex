@@ -1,1 +1,22 @@
-<p>home works!</p>
+<h1>Choose your figther</h1>
+
+<!-- form di ricerca  -->
+<form (ngSubmit)="searchPokemon()" #pokemonForm="ngForm">
+  <div>
+    <label for="pokemonName">Inserisci il nome del Pokemon</label>
+    <input
+      type="text"
+      id="pokemonName"
+      name="pokemonName"
+      [(ngModel)]="pokemonName"
+      required
+    />
+  </div>
+  <button type="submit" [disabled]="pokemonForm.invalid">Cerca</button>
+</form>
+
+<!-- risultato -->
+<div *ngIf="pokemon">
+  <h2>{{ pokemon.name }}</h2>
+  <img [src]="pokemon.image" alt="pokemon avatar" />
+</div>
