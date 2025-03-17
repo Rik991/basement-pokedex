@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PokemonDTO {
-
     private int id;
     private String name;
     private String image;
-
 }
