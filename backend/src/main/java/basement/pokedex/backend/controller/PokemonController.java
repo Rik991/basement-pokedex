@@ -1,6 +1,7 @@
 package basement.pokedex.backend.controller;
 
 
+import basement.pokedex.backend.model.EvolutionChainDTO;
 import basement.pokedex.backend.model.PokemonDTO;
 import basement.pokedex.backend.model.PokemonDetailsDTO;
 import basement.pokedex.backend.model.PokemonTypeDTO;
@@ -41,6 +42,13 @@ public class PokemonController {
     public ResponseEntity<PokemonTypeDTO> getPokemonByType (@PathVariable String type){
         PokemonTypeDTO pokemonTypeList = pokemonService.getPokemonByTipe(type);
         return new ResponseEntity<>(pokemonTypeList, HttpStatus.OK);
+    }
+
+    //task 3, endpoind per la evolutionChain
+    @GetMapping("/evolution/{name}")
+    public ResponseEntity<EvolutionChainDTO> getEvolutionChain(@PathVariable String name){
+        EvolutionChainDTO evolutionChain = pokemonService.getEvolutionChain(name);
+        return new ResponseEntity<>(evolutionChain, HttpStatus.OK);
     }
 
 }

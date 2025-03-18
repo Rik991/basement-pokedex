@@ -2,15 +2,13 @@ package basement.pokedex.backend.service;
 
 
 import basement.pokedex.backend.exceptions.PokemonNotFoundException;
-import basement.pokedex.backend.model.PokemonDTO;
-import basement.pokedex.backend.model.PokemonDetailsDTO;
-import basement.pokedex.backend.model.PokemonTypeDTO;
-import basement.pokedex.backend.model.StatDTO;
+import basement.pokedex.backend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +19,7 @@ public class PokemonService {
     private final RestTemplate restTemplate;
     private final String pokeApiUrl = "https://pokeapi.co/api/v2/pokemon/";
     private final String pokeTypeUrl = "https://pokeapi.co/api/v2/type/";
+    private final String pokeSpeciesUrl = "https://pokeapi.co/api/v2/pokemon-species/";
 
     @Autowired
     public PokemonService(RestTemplate restTemplate) {
@@ -95,13 +94,13 @@ public class PokemonService {
     }
 
     //task 2, metodo per ottenere la lista dei pokemon dal tipo cliccato
-    public PokemonTypeDTO getPokemonByTipe(String type){
+    public PokemonTypeDTO getPokemonByTipe(String type) {
         ResponseEntity<Map> response = restTemplate.getForEntity(
                 pokeTypeUrl + type,
                 Map.class
         );
         Map<String, Object> typeData = response.getBody();
-        List<PokemonDTO> pokemonDTOList =  ((List<Map<String, Object>>) typeData.get("pokemon"))
+        List<PokemonDTO> pokemonDTOList = ((List<Map<String, Object>>) typeData.get("pokemon"))
                 .stream()
                 .limit(10)
                 .map(pokeObj -> {
@@ -110,5 +109,60 @@ public class PokemonService {
                 }).collect(Collectors.toList());
         return new PokemonTypeDTO(type, pokemonDTOList);
     }
+
+    //task 3, metodo che mappa le evoluzioni contenute nella specie (data dal nome) sfruttando una funzione ricorsiva.
+    public EvolutionChainDTO getEvolutionChain(String name) {
+        String pokemonName = name.toLowerCase().trim();
+        try {
+            //mappiamo il JSON per ottenere la specie
+            ResponseEntity<Map> response = restTemplate.getForEntity(
+                    pokeSpeciesUrl + pokemonName,
+                    Map.class
+            );
+            Map<String, Object> species = response.getBody();
+            //ora possiamo estrarre dall'oggetto species l'url della catena evolutiva
+            Map<String, Object> evolutionChain = (Map<String, Object>) species.get("evolution_chain");
+            String evolutionUrl = (String) evolutionChain.get("url");
+            //ripetiamo sull'endpoint evolutionUrl per ottenere la catena
+            ResponseEntity<Map> evolutionUrlResponse = restTemplate.getForEntity(
+                    evolutionUrl,
+                    Map.class
+            );
+            Map<String, Object> evolutions = evolutionUrlResponse.getBody();
+            Map<String, Object> chain = (Map<String, Object>) evolutions.get("chain");
+            //utilizziamo la funzione ricorsiva nameOfEvolutions per estrarre i nomi delle evoluzioni
+            List<String> speciesNames = nameOfEvolutions(chain);
+            //per ogni nome otteniamo il pokemon giusto (userò la funzione getByName per limitarmi a nome e foto)
+            List<PokemonDTO> evolutionChainList = speciesNames.stream().map(this::getPokemonByName).collect(Collectors.toList());
+            return new EvolutionChainDTO(evolutionChainList);
+        } catch (Exception ex) {
+            throw new PokemonNotFoundException(pokemonName + " non ha evoluzioni!");
+        }
+    }
+
+    //funzione ricorsiva per scorrere la catena evolutiva
+    private List<String> nameOfEvolutions(Map<String, Object> chain) {
+        List<String> result = new ArrayList<>();
+        if (chain == null) {
+            return result;
+        }
+        //aggiungiamo il nome della specie corrente
+        Map<String, Object> species = (Map<String, Object>) chain.get("species");
+        if (species != null && species.get("name") != null) {
+            result.add(species.get("name").toString());
+        }
+        //eventuali evoluzioni successive
+        List<Map<String, Object>> evolvesTo = (List<Map<String, Object>>) chain.get("evolves_to");
+        if (evolvesTo != null && !evolvesTo.isEmpty()) {
+            for (int i = 0; i < evolvesTo.size(); i++) {
+                Map<String, Object> evo = evolvesTo.get(i);
+                List<String> evolutions = nameOfEvolutions(evo);
+                result.addAll(evolutions);
+            }
+        }
+        return result;
+    }
 }
+
+
 
