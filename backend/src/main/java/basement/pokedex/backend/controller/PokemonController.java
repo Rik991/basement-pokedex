@@ -2,6 +2,8 @@ package basement.pokedex.backend.controller;
 
 
 import basement.pokedex.backend.model.PokemonDTO;
+import basement.pokedex.backend.model.PokemonDetailsDTO;
+import basement.pokedex.backend.model.PokemonTypeDTO;
 import basement.pokedex.backend.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,20 @@ public class PokemonController {
     public ResponseEntity<PokemonDTO> getPokemonByName(@PathVariable String name) {
       PokemonDTO pokemon = pokemonService.getPokemonByName(name);
       return new ResponseEntity<>(pokemon, HttpStatus.OK);
+    }
+
+    //per la task 2 ripetiamo la chiamata get ma stavolta al metodo aggiornato con i dettagli
+    @GetMapping("/details/{name}")
+    public ResponseEntity<PokemonDetailsDTO> getPokemonWithDetails(@PathVariable String name){
+        PokemonDetailsDTO pokemon = pokemonService.getPokemonWithDetails(name);
+        return new ResponseEntity<>(pokemon, HttpStatus.OK);
+    }
+
+    //creiamo anche l'endpoint per la ricerca sul tipo di pokemon
+    @GetMapping("/type/{type}")
+    public ResponseEntity<PokemonTypeDTO> getPokemonByType (@PathVariable String type){
+        PokemonTypeDTO pokemonTypeList = pokemonService.getPokemonByTipe(type);
+        return new ResponseEntity<>(pokemonTypeList, HttpStatus.OK);
     }
 
 }
