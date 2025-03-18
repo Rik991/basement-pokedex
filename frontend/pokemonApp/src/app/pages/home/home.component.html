@@ -15,6 +15,11 @@
   <button type="submit" [disabled]="pokemonForm.invalid">Cerca</button>
 </form>
 
+<!-- in caso di errore -->
+<div *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+
 <!-- risultato -->
 <div *ngIf="pokemon">
   <h2>{{ pokemon.name }}</h2>
