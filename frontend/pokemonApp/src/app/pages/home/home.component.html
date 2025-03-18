@@ -1,7 +1,7 @@
 <h1>Choose your figther</h1>
 
 <!-- form di ricerca  -->
-<form (ngSubmit)="searchPokemon()" #pokemonForm="ngForm">
+<form (ngSubmit)="searchPokemonTaskTwo()" #pokemonForm="ngForm">
   <div>
     <label for="pokemonName">Inserisci il nome del Pokemon</label>
     <input
@@ -21,7 +21,17 @@
 </div>
 
 <!-- risultato -->
-<div *ngIf="pokemon">
-  <h2>{{ pokemon.name }}</h2>
-  <img [src]="pokemon.image" alt="pokemon avatar" />
+<div *ngIf="pokemonTwo">
+  <h2>{{ pokemonTwo.name }}</h2>
+  <img [src]="pokemonTwo.image" alt="pokemon avatar" />
+  <h3>Types:</h3>
+  <div *ngFor="let type of pokemonTwo?.types">
+    <p>{{ type }}</p>
+  </div>
+  <h3>statistics</h3>
+  <div *ngFor="let stat of pokemonTwo.stats">
+    <p>
+      {{ stat.name }} <span>{{ stat.value }}</span>
+    </p>
+  </div>
 </div>
