@@ -22,10 +22,10 @@
 
 <!-- risultato -->
 <div *ngIf="pokemonTwo">
-  <h2>{{ pokemonTwo.name }}</h2>
+  <a [routerLink]="['/evolution-chain', pokemonName]">{{ pokemonTwo.name }}</a>
   <img [src]="pokemonTwo.image" alt="pokemon avatar" />
   <h3>Types:</h3>
-  <div *ngFor="let type of pokemonTwo?.types">
+  <div *ngFor="let type of pokemonTwo.types">
     <a [routerLink]="['/pokemon-type', type]">{{ type }}</a>
   </div>
   <h3>statistics</h3>

@@ -9,6 +9,11 @@
     <li *ngFor="let pokemon of pokemonTypeList.pokemon">
       <h3>{{ pokemon.name }}</h3>
       <img [src]="pokemon.image" alt="avatar" />
+      <div *ngFor="let stat of pokemon.stats">
+        <p>
+          {{ stat.name }} <span>{{ stat.value }}</span>
+        </p>
+      </div>
     </li>
   </ul>
 </div>

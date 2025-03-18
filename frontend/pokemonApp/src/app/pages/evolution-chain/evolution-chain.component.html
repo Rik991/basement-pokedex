@@ -1,0 +1,11 @@
+<div *ngIf="evolutionChain.length > 0">
+  <h1>Evolutions of {{ species }}</h1>
+  <div *ngFor="let pokemon of evolutionChain">
+    <p>{{ pokemon.name }}</p>
+    <img [src]="pokemon.image" alt="avatar" />
+  </div>
+</div>
+
+<div *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
