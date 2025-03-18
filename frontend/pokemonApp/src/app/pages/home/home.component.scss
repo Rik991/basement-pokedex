@@ -1,0 +1,14 @@
+.search-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.search-btn:hover {
+  transform: scale(1.1);
+}
+
+.go-btn {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+}

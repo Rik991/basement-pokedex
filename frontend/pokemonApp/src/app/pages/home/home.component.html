@@ -1,37 +1,50 @@
-<h1>Choose your figther</h1>
-
-<!-- form di ricerca  -->
-<form (ngSubmit)="searchPokemonTaskTwo()" #pokemonForm="ngForm">
-  <div>
-    <label for="pokemonName">Inserisci il nome del Pokemon</label>
-    <input
-      type="text"
-      id="pokemonName"
-      name="pokemonName"
-      [(ngModel)]="pokemonName"
-      required
-    />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col d-flex flex-column align-items-center">
+      <h1>Choose your Pokemon</h1>
+      <!-- form di ricerca  -->
+      <form (ngSubmit)="searchPokemonTaskTwo()" #pokemonForm="ngForm">
+        <div>
+          <input
+            type="text"
+            id="pokemonName"
+            name="pokemonName"
+            [(ngModel)]="pokemonName"
+            placeholder="search"
+            class="text-center"
+            required
+          />
+          <button
+            class="search-btn"
+            type="submit"
+            [disabled]="pokemonForm.invalid"
+          >
+            <img src="/assets/go.png" alt="search-btn" class="go-btn" />
+          </button>
+        </div>
+      </form>
+      <!-- in caso di errore -->
+      <div *ngIf="errorMessage">
+        <h5 class="text-danger">{{ errorMessage }}</h5>
+      </div>
+    </div>
   </div>
-  <button type="submit" [disabled]="pokemonForm.invalid">Cerca</button>
-</form>
 
-<!-- in caso di errore -->
-<div *ngIf="errorMessage">
-  {{ errorMessage }}
-</div>
-
-<!-- risultato -->
-<div *ngIf="pokemonTwo">
-  <a [routerLink]="['/evolution-chain', pokemonName]">{{ pokemonTwo.name }}</a>
-  <img [src]="pokemonTwo.image" alt="pokemon avatar" />
-  <h3>Types:</h3>
-  <div *ngFor="let type of pokemonTwo.types">
-    <a [routerLink]="['/pokemon-type', type]">{{ type }}</a>
-  </div>
-  <h3>statistics</h3>
-  <div *ngFor="let stat of pokemonTwo.stats">
-    <p>
-      {{ stat.name }} <span>{{ stat.value }}</span>
-    </p>
+  <!-- genero la card  -->
+  <div *ngIf="pokemonTwo">
+    <a [routerLink]="['/evolution-chain', pokemonName]">{{
+      pokemonTwo.name
+    }}</a>
+    <img [src]="pokemonTwo.image" alt="pokemon avatar" />
+    <h3>Types:</h3>
+    <div *ngFor="let type of pokemonTwo.types">
+      <a [routerLink]="['/pokemon-type', type]">{{ type }}</a>
+    </div>
+    <h3>statistics</h3>
+    <div *ngFor="let stat of pokemonTwo.stats">
+      <p>
+        {{ stat.name }} <span>{{ stat.value }}</span>
+      </p>
+    </div>
   </div>
 </div>

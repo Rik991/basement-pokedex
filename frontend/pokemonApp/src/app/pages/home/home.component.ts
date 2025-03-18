@@ -37,6 +37,7 @@ export class HomeComponent {
   searchPokemonTaskTwo(): void {
     this.pokemonSvc.getPokemonWithDetails(this.pokemonName.trim()).subscribe({
       next: (p) => {
+        this.errorMessage = '';
         this.pokemonTwo = p;
       },
       error: (error) => {
