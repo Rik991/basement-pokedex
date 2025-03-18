@@ -12,7 +12,7 @@
 
 ---
 
-## **Task 1: Visualizzare immagine del Pokémon**
+## **Task 1: Visualizzare immagine del Pokémon** ✅
 
 **Branch**: `feature/show-pokemon-image`
 
