@@ -26,7 +26,7 @@
   <img [src]="pokemonTwo.image" alt="pokemon avatar" />
   <h3>Types:</h3>
   <div *ngFor="let type of pokemonTwo?.types">
-    <p>{{ type }}</p>
+    <a [routerLink]="['/pokemon-type', type]">{{ type }}</a>
   </div>
   <h3>statistics</h3>
   <div *ngFor="let stat of pokemonTwo.stats">
