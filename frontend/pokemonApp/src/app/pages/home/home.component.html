@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col d-flex flex-column align-items-center">
+    <div class="col d-flex flex-column align-items-center my-3">
       <h1>Choose your Pokemon</h1>
       <!-- form di ricerca  -->
       <form (ngSubmit)="searchPokemonTaskTwo()" #pokemonForm="ngForm">
@@ -29,22 +29,38 @@
       </div>
     </div>
   </div>
-
-  <!-- genero la card  -->
-  <div *ngIf="pokemonTwo">
-    <a [routerLink]="['/evolution-chain', pokemonName]">{{
-      pokemonTwo.name
-    }}</a>
-    <img [src]="pokemonTwo.image" alt="pokemon avatar" />
-    <h3>Types:</h3>
-    <div *ngFor="let type of pokemonTwo.types">
-      <a [routerLink]="['/pokemon-type', type]">{{ type }}</a>
-    </div>
-    <h3>statistics</h3>
-    <div *ngFor="let stat of pokemonTwo.stats">
-      <p>
-        {{ stat.name }} <span>{{ stat.value }}</span>
-      </p>
+  <div class="row">
+    <div class="col d-flex align-items-center justify-content-center">
+      <!-- genero la card  -->
+      <div *ngIf="pokemonTwo" class="d-flex flex-column align-items-center">
+        <div class="pokehead">
+          <div class="d-flex align-items-center">
+            <img [src]="pokemonTwo.image" alt="pokemon avatar" />
+            <a [routerLink]="['/evolution-chain', pokemonName]"
+              ><h2 class="species" title="Clicca to see evolution chain">
+                {{ pokemonTwo.name }}
+              </h2></a
+            >
+          </div>
+          <div class="type-badge">
+            <span>Type:</span>
+            <div *ngFor="let type of pokemonTwo.types">
+              <a
+                title="List of {{ type }} Pokemon"
+                class="type-link"
+                [routerLink]="['/pokemon-type', type]"
+                >{{ type }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <h3>statistics</h3>
+        <div *ngFor="let stat of pokemonTwo.stats">
+          <p>
+            {{ stat.name }} <span>{{ stat.value }}</span>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

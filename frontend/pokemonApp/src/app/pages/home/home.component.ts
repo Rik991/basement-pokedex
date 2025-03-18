@@ -43,6 +43,7 @@ export class HomeComponent {
       error: (error) => {
         console.error('Pokemon non trovato');
         this.errorMessage = 'Pokemon non trovato, inserisci un nome valido ';
+        this.pokemonTwo = null;
       },
     });
   }

@@ -1,3 +1,7 @@
+a:hover {
+  transform: scale(1.1);
+}
+
 .search-btn {
   border: none;
   background: none;
@@ -11,4 +15,29 @@
   width: 4rem;
   height: 4rem;
   object-fit: contain;
+}
+
+.species {
+  text-transform: uppercase;
+  color: #00409b;
+}
+
+.type-link {
+  text-transform: capitalize;
+  border: solid 1px #212529;
+  border-radius: 5px;
+  padding-inline: 1rem;
+  color: #212529;
+}
+
+.pokehead {
+  border: solid 2px #033479;
+  border-radius: 10px;
+  padding-right: 1.2rem;
+  position: relative;
+}
+
+.type-badge {
+  display: flex;
+  justify-content: end;
 }
