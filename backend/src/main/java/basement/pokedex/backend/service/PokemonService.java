@@ -71,7 +71,7 @@ public class PokemonService {
                     .map(typeInfo -> ((Map<String, Object>) typeInfo.get("type")).get("name").toString())
                     .collect(Collectors.toList());
 
-            // quindi andiamo ad estrarre anche le statistiche ed i loro valori
+            // quindi andiamo a estrarre anche le statistiche e i loro valori
             List<StatDTO> stats = ((List<Map<String, Object>>) pokemonData.get("stats"))
                     .stream()
                     .map(statMap -> {
@@ -106,7 +106,7 @@ public class PokemonService {
                 .limit(10)
                 .map(pokeObj -> {
                     String pokemonName = ((Map<String, Object>) pokeObj.get("pokemon")).get("name").toString();
-                    return getPokemonByName(pokemonName);
+                    return getPokemonWithDetails(pokemonName);
                 }).collect(Collectors.toList());
         return new PokemonTypeDTO(type, pokemonDTOList);
     }
