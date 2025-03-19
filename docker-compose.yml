@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - pokedex-network
+    volumes:
+      - ./backend:/app
+      - maven-repo:/root/.m2
+
+  frontend:
+    build:
+      context: ./frontend/pokemonApp
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - pokedex-network
+
+networks:
+  pokedex-network:
+    driver: bridge
+
+volumes:
+  maven-repo:
