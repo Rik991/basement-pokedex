@@ -1,19 +1,44 @@
-<h1>Pokemon di tipo: {{ type }}</h1>
+<div class="container-fluid">
+  <h1 class="text-center my-4">
+    Pokemon <span class="text-capitalize">{{ type }}</span> type
+  </h1>
 
-<div *ngIf="errorMessage">
-  {{ errorMessage }}
-</div>
+  <div *ngIf="errorMessage">
+    <h5 class="text-danger">{{ errorMessage }}</h5>
+  </div>
 
-<div *ngIf="pokemonTypeList">
-  <ul>
-    <li *ngFor="let pokemon of pokemonTypeList.pokemon">
-      <h3>{{ pokemon.name }}</h3>
-      <img [src]="pokemon.image" alt="avatar" />
-      <div *ngFor="let stat of pokemon.stats">
-        <p>
-          {{ stat.name }} <span>{{ stat.value }}</span>
-        </p>
-      </div>
-    </li>
-  </ul>
+  <div class="row" *ngIf="pokemonTypeList">
+    <div class="col">
+      <ul class="d-flex flex-wrap list-unstyled">
+        <li
+          class="col-12 col-md-6 col-lg-4"
+          *ngFor="let pokemon of pokemonTypeList.pokemon; let i = index"
+        >
+          <div class="card p-3">
+            <div class="d-flex align-items-center mb-2">
+              <img
+                [src]="pokemon.image"
+                alt="avatar"
+                class="pokemon-img me-2"
+              />
+              <h3 class="text-uppercase m-0">{{ pokemon.name }}</h3>
+            </div>
+            <button
+              class="btn btn-outline-primary btn-sm mb-2"
+              (click)="toggleStats(i)"
+            >
+              {{ toggleStates[i] ? "Hide Stats" : "Show Stats" }}
+            </button>
+            <div *ngIf="toggleStates[i]" class="stats">
+              <div *ngFor="let stat of pokemon.stats">
+                <h6 class="text-center">
+                  {{ stat.name }}: <span>{{ stat.value }}</span>
+                </h6>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

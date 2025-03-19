@@ -1,11 +1,22 @@
-<div *ngIf="evolutionChain.length > 0">
-  <h1>Evolutions of {{ species }}</h1>
-  <div *ngFor="let pokemon of evolutionChain">
-    <p>{{ pokemon.name }}</p>
-    <img [src]="pokemon.image" alt="avatar" />
+<div class="container-fluid text-center mt-4">
+  <div *ngIf="evolutionChain.length > 0">
+    <h1 class="mb-4">Evolutions of {{ species }}</h1>
+    <div class="row justify-content-center">
+      <div
+        *ngFor="let pokemon of evolutionChain"
+        class="col-md-4 col-sm-6 mb-3"
+      >
+        <div class="card">
+          <div class="card-body text-center">
+            <img [src]="pokemon.image" alt="avatar" class="pokemon-img mb-2" />
+            <h4 class="text-capitalize">{{ pokemon.name }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-<div *ngIf="errorMessage">
-  {{ errorMessage }}
+  <div *ngIf="errorMessage">
+    <h5 class="text-danger">{{ errorMessage }}</h5>
+  </div>
 </div>

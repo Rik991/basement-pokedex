@@ -1,10 +1,20 @@
 @import "bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-*,
-body {
+* {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
+}
+
+body {
+  padding-top: 5rem;
+  background-color: #fef7db;
+  background-image: url("/assets/back2.jpg");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: 100%;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 h1,

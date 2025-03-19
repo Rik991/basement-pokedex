@@ -13,6 +13,7 @@ export class PokemonTypeComponent {
   type: string = '';
   pokemonTypeList: IPokemonType | null = null;
   errorMessage: string = '';
+  toggleStates: boolean[] = [];
 
   constructor(
     private pokemonSvc: PokemonService,
@@ -39,5 +40,9 @@ export class PokemonTypeComponent {
           'Errore nel recupero dei Pokémon per il tipo selezionato.';
       },
     });
+  }
+
+  toggleStats(index: number): void {
+    this.toggleStates[index] = !this.toggleStates[index];
   }
 }

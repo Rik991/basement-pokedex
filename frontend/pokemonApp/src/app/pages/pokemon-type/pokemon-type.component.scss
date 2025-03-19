@@ -1,0 +1,29 @@
+/* Rimuove i bullet point e padding della lista */
+ul.list-unstyled {
+  padding: 0;
+}
+
+.card {
+  border: 1px solid #033479;
+  border-radius: 10px;
+  background: #fffbec;
+  transition: transform 0.2s ease;
+  margin: 0.5rem;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.pokemon-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.stats {
+  margin-top: 10px;
+  background: rgba(0, 64, 155, 0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
